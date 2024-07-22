@@ -58,11 +58,11 @@ const CameraComponent = () => {
           </div>
         </div>
 
-        <div className='flex flex-row items-center justify-center mt-9'>
+        <div className='flex flex-row items-center justify-center mt-9 space-x-12'>
           <video ref={videoRef} autoPlay muted style={{ width: '100%', maxWidth: '640px', display: cameraActive ? 'block' : 'none' }} className='rounded-3xl mb-5'></video>
           <canvas ref={canvasRef} style={{ display: 'none' }} width="640" height="480"></canvas>
           {cameraActive && (
-            <button className='p-3 text-white font-semibold bg-[#FF8C00]  hover:bg-[#e07a00] mb-5 rounded-3xl ' style={{ width: '640px', height: '480px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={takePhoto}>Tomar Foto</button>
+            <button className='p-3 text-white font-semibold bg-[#FF8C00]  hover:bg-[#e07a00] mb-5 rounded-3xl ' style={{ width: '640px', height: '480px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={takePhoto}>Detectar Bandera</button>
           )}
         </div>
 
@@ -73,7 +73,7 @@ const CameraComponent = () => {
                 <h1 className='text-[#FF8C00] text-4xl font-semibold'></h1>
               )}
               <h1 className='text-[#FF8C00] text-6xl font-semibold mb-8'>{predictedClass}</h1>
-              {historyText && <h1 className='text-white text-xl font-medium'>{historyText}</h1>}
+              {historyText && <h1 className='text-white text-xl font-medium text-left'>{historyText}</h1>}
             </div>
           </div>
         )}

@@ -29,7 +29,7 @@ const CameraComponent = () => {
     formData.append('image', blob, 'image.jpg');
 
     try {
-      const response = await fetch('http://localhost:5000/predict', {
+      const response = await fetch('http://localhost:5001/predict', {
         method: 'POST',
         body: formData
       });
@@ -48,38 +48,33 @@ const CameraComponent = () => {
 
   return (
     <>
-      <div className='bg-[#181818] h-[689px]'>
-        <div className='flex flex-col justify-center'>
-          <h1 className='text-center text-white font-semibold text-6xl mt-6'>FLAG DETECTOR</h1>
+      <div className='bg-[#181818] h-[100vh]'>
+        <div className='flex flex-col items-center'>
 
           <div className='flex justify-center'>
             {!cameraActive && (
-              <button className='p-3 mt-6 text-white font-semibold bg-[#474747] rounded-lg hover:bg-[#3e3e3e]' onClick={startCamera}>Activar Cámara</button>
+              <button className='p-3 mt-6 text-white font-semibold bg-[#FF8C00] rounded-lg hover:bg-[#e07a00]' onClick={startCamera}>Activar Cámara</button>
             )}
           </div>
         </div>
 
-        <div className='grid grid-cols-2 mt-9'>
-          <div>
-            <video ref={videoRef} autoPlay muted style={{ width: '100%', maxWidth: '640px', display: cameraActive ? 'block' : 'none' }} className='ml-5 rounded-3xl'></video>
-            <canvas ref={canvasRef} style={{ display: 'none' }} width="640" height="480" className='ml-10'></canvas>
-          </div>
-
-
+        <div className='flex flex-row items-center justify-center mt-9'>
+          <video ref={videoRef} autoPlay muted style={{ width: '100%', maxWidth: '640px', display: cameraActive ? 'block' : 'none' }} className='rounded-3xl mb-5'></video>
+          <canvas ref={canvasRef} style={{ display: 'none' }} width="640" height="480"></canvas>
           {cameraActive && (
-            <div className='mx-20 ml-[15px] bg-[#2c2c2c] rounded-3xl p-5'>
-
-              {!historyText && (
-                <h1 className='text-[#d75858] text-6xl font-semibold text-center mt-[155px]'>ESPERANDO BANDERA</h1>
-              )}
-              <h1 className='text-[#d75858] text-8xl font-semibold mb-8 text-center mt-24'>{predictedClass}</h1>
-              {historyText && <h1 className='text-white text-xl font-medium text-center'>{historyText}</h1>}
-            </div>
+            <button className='p-3 text-white font-semibold bg-[#FF8C00]  hover:bg-[#e07a00] mb-5 rounded-3xl ' style={{ width: '640px', height: '480px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={takePhoto}>Tomar Foto</button>
           )}
         </div>
+
         {cameraActive && (
-          <div className='flex justify-center'>
-            <button className='p-3 mt-6 mx-10 w-[150px] text-white font-semibold bg-[#474747] rounded-lg hover:bg-[#3e3e3e]' onClick={takePhoto}>Tomar Foto</button>
+          <div className='flex flex-col items-center mx-12'>
+            <div className='bg-[#2c2c2c] rounded-3xl p-5 w-full text-center'>
+              {!historyText && (
+                <h1 className='text-[#FF8C00] text-4xl font-semibold'></h1>
+              )}
+              <h1 className='text-[#FF8C00] text-6xl font-semibold mb-8'>{predictedClass}</h1>
+              {historyText && <h1 className='text-white text-xl font-medium'>{historyText}</h1>}
+            </div>
           </div>
         )}
       </div>

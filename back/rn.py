@@ -9,7 +9,7 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-classes=['bear']
+classes=['arromantica','asexual', 'bear', 'bisexual', 'demisexual', 'fluido', 'gay', 'intersexual', 'lesbica', 'nobinario', 'pansexual', 'queer', 'trans' ]
 num_classes = len(classes)
 img_rows, img_cols = 64, 64
 
@@ -17,7 +17,7 @@ def load_data():
     data = []
     target = []
     for index, clase in enumerate(classes):
-        folder_path = os.path.join('Entrenamiento', clase)
+        folder_path = os.path.join('entrenamiento', clase)
         for img in os.listdir(folder_path):
             img_path = os.path.join(folder_path, img)
             try:
@@ -37,9 +37,9 @@ def load_data():
 data, target = load_data()
 
 X_train, X_test, y_train, y_test = train_test_split(data, target, test_size=0.2)
+
 model = Sequential()
 model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(img_rows, img_cols, 1)))
-
 model.add(Conv2D(64, kernel_size=(3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
@@ -49,7 +49,9 @@ model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-history = model.fit(X_train,y_train, batch_size=40, epochs=20, verbose=1, validation_data=(X_test,y_test))
+# batch_size: número de muestras que se utilizarán en cada iteración
+# epochs: número de veces que se iterará sobre el conjunto de datos
+history = model.fit(X_train,y_train, batch_size=40, epochs=90, verbose=1, validation_data=(X_test,y_test))
 model.save('modelo.h5')
 
 if not os.path.exists('graficas'):

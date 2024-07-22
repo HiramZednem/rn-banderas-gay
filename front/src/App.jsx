@@ -69,10 +69,7 @@ const CameraComponent = () => {
         {cameraActive && (
           <div className='flex flex-col items-center mx-12'>
             <div className='bg-[#2c2c2c] rounded-3xl p-5 w-full text-center'>
-              {!historyText && (
-                <h1 className='text-[#FF8C00] text-4xl font-semibold'></h1>
-              )}
-              <h1 className='text-[#FF8C00] text-6xl font-semibold mb-8'>{predictedClass}</h1>
+              <h1 className='text-[#FF8C00] text-6xl font-semibold mb-8 capitalize'>Genero {predictedClass}</h1>
               {historyText && <h1 className='text-white text-xl font-medium text-left'>{historyText}</h1>}
             </div>
           </div>
